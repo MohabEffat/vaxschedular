@@ -1,11 +1,14 @@
 package com.clinic.vaxschedular.Entity;
 
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -40,10 +43,7 @@ public class Admin {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "Vaccine_Center", nullable = false)
-    private String VaccineCenter;
-
-    // @OneToOne(mappedBy = "admin", cascade = CascadeType.ALL)
-    // private VaccinationCenter vaccinationCenter;
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+    private List<VaccinationCenter> vaccinationCenter;
 
 }

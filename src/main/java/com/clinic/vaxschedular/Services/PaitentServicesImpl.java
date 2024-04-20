@@ -29,8 +29,8 @@ public class PaitentServicesImpl implements PaitentServices {
         } else {
             Patient newPatient = new Patient(patient.getId(), patient.getSsn(),
                     patient.getFirstName(), patient.getLastName(), patient.getEmail(),
-                    this.passwordEncoder.encode(patient.getPassword()), patient.getVaccinationCenterName(),
-                    patient.getVaccineName(), patient.getCertification());
+                    this.passwordEncoder.encode(patient.getPassword()),
+                    patient.getVaccineName(), patient.getCertification(), patient.getVaccinationCenter());
             patientRepo.save(newPatient);
         }
         return "Patient registered successfully!";

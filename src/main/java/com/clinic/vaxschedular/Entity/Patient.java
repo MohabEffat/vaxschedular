@@ -40,18 +40,13 @@ public class Patient {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "vaccination_Center_Name", nullable = false)
-    private String vaccinationCenterName;
-
     @Column(name = "vaccine_Name", nullable = false)
     private String vaccineName;
 
     @Column(name = "certification", nullable = true)
     private String certification;
 
-    // @ManyToOne
-    // @JoinColumn(name = "vaccination_Center_Name", referencedColumnName =
-    // "Center_name", insertable = false, updatable = false)
-    // private VaccinationCenter vaccinationCenter;
-
+    @ManyToOne
+    @JoinColumn(name = "vaccination_Center", referencedColumnName = "Center_name", insertable = false, updatable = false)
+    private VaccinationCenter vaccinationCenter;
 }

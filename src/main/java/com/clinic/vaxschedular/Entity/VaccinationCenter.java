@@ -1,8 +1,8 @@
 package com.clinic.vaxschedular.Entity;
 
 import java.util.List;
+
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.CascadeType;
 
 import jakarta.persistence.Column;
@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -47,12 +48,11 @@ public class VaccinationCenter {
     @Column(name = "Admin_Id", nullable = false)
     private int adminId;
 
-    // @OneToMany(mappedBy = "vaccinationCenter", cascade = CascadeType.ALL)
-    // private List<Patient> patients;
+    @OneToMany(mappedBy = "vaccinationCenter", cascade = CascadeType.ALL)
+    private List<Patient> patients;
 
-    // @OneToOne
-    // @JoinColumn(name = "Admin_Id", referencedColumnName = "id", insertable =
-    // false, updatable = false)
-    // private Admin admin;
+    @ManyToOne
+    @JoinColumn(name = "Admin_Id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Admin admin;
 
 }
