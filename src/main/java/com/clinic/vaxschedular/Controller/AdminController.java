@@ -18,11 +18,14 @@ public class AdminController {
     private AdminService adminService;
 
     @PostMapping("/Register")
+    //localhost:8080/api/admin/Register
+
     public String RegisterPatient(@RequestBody Patient patient) {
         return paitentServices.Register(patient);
     }
 
     @PostMapping("/login")
+    //localhost:8080/api/admin/login
     public String loginPatient(@RequestBody LoginDTO loginDTO) {
         return paitentServices.login(loginDTO);
     }
