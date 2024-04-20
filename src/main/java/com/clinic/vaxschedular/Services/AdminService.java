@@ -2,8 +2,9 @@ package com.clinic.vaxschedular.Services;
 
 import org.springframework.stereotype.Service;
 
+import com.clinic.vaxschedular.Entity.Admin;
 import com.clinic.vaxschedular.Entity.Patient;
-// import com.clinic.vaxschedular.Entity.VaccinationCenter;
+import com.clinic.vaxschedular.Entity.VaccinationCenter;
 // import com.clinic.vaxschedular.Entity.Vaccine;
 
 @Service
@@ -15,7 +16,9 @@ public interface AdminService {
 
     // String rejectPatient(Patient patient);
 
-    // String addVaccinationCenter(VaccinationCenter vaccinationCenter);
+    String addVaccinationCenter(VaccinationCenter vaccinationCenter);
+
+    String addAdmin(Admin admin);
 
     // String deleteVaccinationCenter(VaccinationCenter vaccinationCenter);
 

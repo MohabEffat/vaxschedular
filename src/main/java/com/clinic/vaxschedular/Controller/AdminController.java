@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.clinic.vaxschedular.DTO.LoginDTO;
+import com.clinic.vaxschedular.Entity.Admin;
 import com.clinic.vaxschedular.Entity.Patient;
+import com.clinic.vaxschedular.Entity.VaccinationCenter;
+import com.clinic.vaxschedular.Repository.VaccinationCenterRepo;
 import com.clinic.vaxschedular.Services.AdminService;
 import com.clinic.vaxschedular.Services.PaitentServices;
 
@@ -14,18 +17,22 @@ public class AdminController {
 
     @Autowired
     private PaitentServices paitentServices;
+
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private VaccinationCenterRepo vaccinationCenterRepo;
+
     @PostMapping("/Register")
-    //localhost:8080/api/admin/Register
+    // localhost:8080/api/admin/Register
 
     public String RegisterPatient(@RequestBody Patient patient) {
         return paitentServices.Register(patient);
     }
 
     @PostMapping("/login")
-    //localhost:8080/api/admin/login
+    // localhost:8080/api/admin/login
     public String loginPatient(@RequestBody LoginDTO loginDTO) {
         return paitentServices.login(loginDTO);
     }
@@ -38,6 +45,18 @@ public class AdminController {
     @GetMapping("/hello")
     public String sayWelcome() {
         return "Welcome";
+    }
+
+    @PostMapping("/Add_Center")
+    public String add_Center(@RequestBody VaccinationCenter vaccinationCenter) {
+
+        return adminService.addVaccinationCenter(vaccinationCenter);
+    }
+
+    @PostMapping("/Add_Admin")
+    public String add_Aenter(@RequestBody Admin admin) {
+
+        return adminService.addAdmin(admin);
     }
 
     // @GetMapping(value = "listAllVaccinationCenters")
