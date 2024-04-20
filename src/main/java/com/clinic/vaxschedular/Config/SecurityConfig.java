@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/admin/hello").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/admin/Register").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/admin/login").hasRole("PATIENT")
-                .requestMatchers(HttpMethod.POST, "/api/admin/Add_Center").hasRole("CENTER")
+                .requestMatchers(HttpMethod.POST, "/api/admin/Add_Center").hasAnyRole("CENTER", "ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/admin/Add_Admin").hasRole("ADMIN")
                 .anyRequest().authenticated());
         http.httpBasic(Customizer.withDefaults());
@@ -44,11 +44,16 @@ public class SecurityConfig {
     }
 
     @Bean
-    public DaoAuthenticationProvider adminAuthenticationProvider() {
+    public AuthenticationProvider AuthenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(roleDetailesService);
+        authenticationProvider.setUserDetailsService(userDetailsService());
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return roleDetailesService;
     }
 
     @Bean

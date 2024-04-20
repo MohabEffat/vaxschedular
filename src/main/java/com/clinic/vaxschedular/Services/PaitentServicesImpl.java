@@ -8,13 +8,17 @@ import org.springframework.stereotype.Service;
 
 import com.clinic.vaxschedular.DTO.LoginDTO;
 import com.clinic.vaxschedular.Entity.Patient;
+import com.clinic.vaxschedular.Entity.Role;
 import com.clinic.vaxschedular.Repository.PatientRepo;
+import com.clinic.vaxschedular.Repository.RoleRepo;
 
 @Service
 public class PaitentServicesImpl implements PaitentServices {
 
     @Autowired
     private PatientRepo patientRepo;
+    @Autowired
+    private RoleRepo roleRepo;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -32,6 +36,8 @@ public class PaitentServicesImpl implements PaitentServices {
                     this.passwordEncoder.encode(patient.getPassword()),
                     patient.getVaccineName(), patient.getCertification(), patient.getVaccinationCenter());
             patientRepo.save(newPatient);
+            Role role = new Role("PATIENT", newPatient.getEmail(), newPatient.getPassword());
+            roleRepo.save(role);
         }
         return "Patient registered successfully!";
     }

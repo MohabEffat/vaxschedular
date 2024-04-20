@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.clinic.vaxschedular.Entity.Admin;
 import com.clinic.vaxschedular.Entity.Patient;
+import com.clinic.vaxschedular.Entity.Role;
 import com.clinic.vaxschedular.Entity.VaccinationCenter;
 import com.clinic.vaxschedular.Repository.AdminRepo;
 import com.clinic.vaxschedular.Repository.PatientRepo;
+import com.clinic.vaxschedular.Repository.RoleRepo;
 import com.clinic.vaxschedular.Repository.VaccinationCenterRepo;
 
 @Service
@@ -27,6 +29,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RoleRepo roleRepo;
 
     @Override
     public String removePatient(Patient patient) {
@@ -47,6 +52,8 @@ public class AdminServiceImpl implements AdminService {
         } else {
             vaccinationCenter.setPassword(passwordEncoder.encode(vaccinationCenter.getPassword()));
             vaccineCenterRepo.save(vaccinationCenter);
+            Role role = new Role("CENTER", vaccinationCenter.getEmail(), vaccinationCenter.getPassword());
+            roleRepo.save(role);
         }
         return "Center Added Successfully!";
     }
@@ -58,6 +65,8 @@ public class AdminServiceImpl implements AdminService {
         } else {
             admin.setPassword(passwordEncoder.encode(admin.getPassword()));
             adminRepo.save(admin);
+            Role role = new Role("ADMIN", admin.getEmail(), admin.getPassword());
+            roleRepo.save(role);
             return "DONE!";
         }
     }

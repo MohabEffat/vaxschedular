@@ -19,6 +19,12 @@ import lombok.Setter;
 @Table(name = "Role")
 public class Role {
 
+    public Role(String role, String email, String password) {
+        this.role = role;
+        this.email = email;
+        this.password = password;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
