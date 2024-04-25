@@ -3,7 +3,6 @@ package com.clinic.vaxschedular.Entity;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonRawValue;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
 

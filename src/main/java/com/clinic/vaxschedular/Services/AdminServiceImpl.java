@@ -41,9 +41,6 @@ public class AdminServiceImpl implements AdminService {
         return "Patient Not Found";
     }
 
-
-
-
     @Override
     public String addVaccinationCenter(VaccinationCenter vaccinationCenter) {
 
@@ -58,7 +55,6 @@ public class AdminServiceImpl implements AdminService {
         }
         return "Center Added Successfully!";
     }
-
 
     @Override
 
@@ -99,13 +95,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean updateVaccinationCenter(VaccinationCenter vaccinationCenter)
-    {
+    public boolean updateVaccinationCenter(VaccinationCenter vaccinationCenter) {
         List<VaccinationCenter> allCenters = (List<VaccinationCenter>) vaccineCenterRepo.findAll();
 
         for (VaccinationCenter center : allCenters) {
-            if(center.getId() == vaccinationCenter.getId())
-            {
+            if (center.getId() == vaccinationCenter.getId()) {
                 center.setAdmin(vaccinationCenter.getAdmin());
                 center.setId(vaccinationCenter.getId());
                 center.setAdminId(vaccinationCenter.getAdminId());
@@ -122,15 +116,12 @@ public class AdminServiceImpl implements AdminService {
         return false;
     }
 
-
     @Override
-    public boolean deleteVaccinationCenter(int id)
-    {
+    public boolean deleteVaccinationCenter(int id) {
         List<VaccinationCenter> allCenters = (List<VaccinationCenter>) vaccineCenterRepo.findAll();
 
         for (VaccinationCenter center : allCenters) {
-            if(center.getId() == id)
-            {
+            if (center.getId() == id) {
                 vaccineCenterRepo.deleteById(id);
                 return true;
             }
@@ -138,35 +129,30 @@ public class AdminServiceImpl implements AdminService {
         return false;
     }
 
-
     @Override
-    public boolean createVaccine(Vaccine vaccine){
-    List<Vaccine> allvaccines = (List<Vaccine>) vaccineRepo.findAll();
+    public boolean createVaccine(Vaccine vaccine) {
+        List<Vaccine> allvaccines = (List<Vaccine>) vaccineRepo.findAll();
 
         for (Vaccine createdVaccine : allvaccines) {
-        if(createdVaccine.getId() == vaccine.getId()){
+            if (createdVaccine.getId() == vaccine.getId()) {
                 return false;
-        }
+            }
         }
         vaccineRepo.save(vaccine);
         return true;
     }
 
     @Override
-    public  List<Vaccine> listVaccine()
-    {
+    public List<Vaccine> listVaccine() {
         return vaccineRepo.findAll();
     }
 
-
     @Override
-    public boolean deleteVaccine(int id )
-    {
+    public boolean deleteVaccine(int id) {
         List<Vaccine> allvaccines = (List<Vaccine>) vaccineRepo.findAll();
 
         for (Vaccine deleteVaccine : allvaccines) {
-            if(deleteVaccine.getId() == id)
-            {
+            if (deleteVaccine.getId() == id) {
                 vaccineRepo.deleteById(id);
                 return true;
             }
@@ -174,20 +160,17 @@ public class AdminServiceImpl implements AdminService {
         return false;
     }
 
-
     @Override
-    public boolean updateVaccine(Vaccine vaccine)
-    {
+    public boolean updateVaccine(Vaccine vaccine) {
         List<Vaccine> allVaccines = (List<Vaccine>) vaccineRepo.findAll();
 
-        for (Vaccine ubdateVaccine : allVaccines) {
-            if(ubdateVaccine.getId() == vaccine.getId())
-            {
-                ubdateVaccine.setVaccineName(vaccine.getVaccineName());
-                ubdateVaccine.setVaccinationCenterName(vaccine.getVaccinationCenterName());
-                ubdateVaccine.setPrecautions(vaccine.getPrecautions());
-                ubdateVaccine.setDurationBetweenDoses(vaccine.getDurationBetweenDoses());
-                vaccineRepo.save(ubdateVaccine);
+        for (Vaccine updateVaccine : allVaccines) {
+            if (updateVaccine.getId() == vaccine.getId()) {
+                updateVaccine.setVaccineName(vaccine.getVaccineName());
+                updateVaccine.setVaccinationCenterName(vaccine.getVaccinationCenterName());
+                updateVaccine.setPrecautions(vaccine.getPrecautions());
+                updateVaccine.setDurationBetweenDoses(vaccine.getDurationBetweenDoses());
+                vaccineRepo.save(updateVaccine);
                 return true;
             }
         }

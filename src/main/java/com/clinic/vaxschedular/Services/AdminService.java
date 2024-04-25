@@ -8,7 +8,6 @@ import com.clinic.vaxschedular.Entity.Patient;
 import com.clinic.vaxschedular.Entity.VaccinationCenter;
 
 import java.util.List;
-import java.util.Optional;
 // import com.clinic.vaxschedular.Entity.Vaccine;
 
 @Service
