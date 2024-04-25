@@ -1,10 +1,14 @@
 package com.clinic.vaxschedular.Services;
 
+import com.clinic.vaxschedular.Entity.Vaccine;
 import org.springframework.stereotype.Service;
 
 import com.clinic.vaxschedular.Entity.Admin;
 import com.clinic.vaxschedular.Entity.Patient;
 import com.clinic.vaxschedular.Entity.VaccinationCenter;
+
+import java.util.List;
+import java.util.Optional;
 // import com.clinic.vaxschedular.Entity.Vaccine;
 
 @Service
@@ -12,26 +16,25 @@ public interface AdminService {
 
     String removePatient(Patient patient);
 
+    String addAdmin(Admin admin);
     // String acceptPatient(Patient patient);
 
     // String rejectPatient(Patient patient);
 
     String addVaccinationCenter(VaccinationCenter vaccinationCenter);
 
-    String addAdmin(Admin admin);
+    boolean deleteVaccinationCenter(int id);
 
-    // String deleteVaccinationCenter(VaccinationCenter vaccinationCenter);
+    boolean updateVaccinationCenter(VaccinationCenter vaccinationCenter);
 
-    // String updateVaccinationCenter(VaccinationCenter vaccinationCenter);
+    List<VaccinationCenter> listVaccinationCenter();
 
-    // String listVaccinationCenter();
+    boolean createVaccine(Vaccine vaccine);
 
-    // Vaccine createVaccine(Vaccine vaccine);
+    List<Vaccine> listVaccine();
 
-    // String deleteVaccine(Vaccine vaccine);
+    boolean deleteVaccine(int id);
 
-    // String updateVaccine(Vaccine vaccine);
-
-    // String listVaccine();
+    boolean updateVaccine(Vaccine vaccine);
 
 }

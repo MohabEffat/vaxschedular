@@ -2,6 +2,8 @@ package com.clinic.vaxschedular.Entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonRawValue;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
 
@@ -51,6 +53,7 @@ public class VaccinationCenter {
     @OneToMany(mappedBy = "vaccinationCenter", cascade = CascadeType.ALL)
     private List<Patient> patients;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "Admin_Id", referencedColumnName = "id", insertable = false, updatable = false)
     private Admin admin;

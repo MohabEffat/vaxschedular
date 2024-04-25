@@ -1,5 +1,7 @@
 package com.clinic.vaxschedular.Controller;
 
+import com.clinic.vaxschedular.Entity.Vaccine;
+import com.fasterxml.jackson.annotation.JsonRawValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +12,8 @@ import com.clinic.vaxschedular.Entity.VaccinationCenter;
 import com.clinic.vaxschedular.Repository.VaccinationCenterRepo;
 import com.clinic.vaxschedular.Services.AdminService;
 import com.clinic.vaxschedular.Services.PaitentServices;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/admin/")
@@ -59,61 +63,56 @@ public class AdminController {
         return adminService.addAdmin(admin);
     }
 
-    // @GetMapping(value = "listAllVaccinationCenters")
+    @GetMapping(value = "listAllVaccinationCenters")
+    public List<VaccinationCenter> getAllVaccinationCenters()
+    {
+        return adminService.listVaccinationCenter();
+    }
 
-    // public List<VaccinationCenter> getAllVaccinationCenters() {
-    // return vaccinationCenterService.findAll();
-    // }
+    @PutMapping("ubdateVaccinationCenter")
+    public String ubdateVaccinationCenter(@RequestBody VaccinationCenter vaccinationCenter)
+    {
+        if (adminService.updateVaccinationCenter(vaccinationCenter))
+            return "Center Is Ubdated Successfully";
+        return "This Center is NOT Exict";
+    }
 
-    // @GetMapping(value = "listAllVaccines")
+    @DeleteMapping("deleteVaccinationCenter")
+    public String deleteVaccinationCenter(@RequestBody int id)
+    {
+        if (adminService.deleteVaccinationCenter(id))
+            return id + " is Deleted Successfully";
+        return "This Center is NOT Exict";
+    }
 
-    // public List<Vaccine> getAllVaccines() {
-    // return vaccineService.findAll();
-    // }
 
-    // @PostMapping("addVaccinationCenter")
-    // public String createNewVaccinationCenter(@RequestBody VaccinationCenter
-    // vaccinationCenter) {
-    // if (vaccinationCenterService.save(vaccinationCenter)) {
-    // return "VaccinationCenter is Created";
-    // }
-    // return "null";
-    // }
+     @PostMapping("addVaccine")
+     public String createNewVaccine(@RequestBody Vaccine vaccine) {
+     if (adminService.createVaccine(vaccine)) {
+        return "Vaccine is Created";
+     }
+     return "This Vaccine is already Exist";
+     }
 
-    // @PostMapping("addVaccine")
-    // public String createNewVaccine(@RequestBody Vaccine vaccine) {
-    // if (vaccineService.save(vaccine)) {
-    // return "Vaccine is Created";
-    // }
-    // return "null";
-    // }
+     @GetMapping(value = "listAllVaccines")
+     public List<Vaccine> getAllVaccines() {
+     return adminService.listVaccine();
+     }
+     @DeleteMapping("deleteVaccine")
+     public String deleteVaccine(@RequestBody int id)
+     {
+         if(adminService.deleteVaccine(id))
+         {
+             return id + " is Deleted Successfully";
+         }
+         return "This Vaccine is NOT Exict";
+     }
 
-    // @PutMapping("ubdateVaccinationCenter")
-    // public String ubdateVaccinationCenter(@RequestBody VaccinationCenter
-    // vaccinationCenter) {
-    // if (vaccinationCenterService.ubdate(vaccinationCenter)) {
-    // return "Ubdated Successfully";
-    // }
-    // return "null";
-    // }
-
-    // @PutMapping("ubdateVaccine")
-    // public String ubdateVaccine(@RequestBody Vaccine vaccine) {
-    // if (vaccineService.ubdate(vaccine)) {
-    // return "Ubdated Successfully";
-    // }
-    // return "null";
-    // }
-
-    // @DeleteMapping("deleteVaccinationCenter")
-    // public void deleteVaccinationCenter(@RequestBody VaccinationCenter
-    // vaccinationCenter) {
-    // vaccinationCenterService.delete(vaccinationCenter);
-    // }
-
-    // @DeleteMapping("deleteVaccine")
-    // public void deleteVaccine(@RequestBody Vaccine vaccine) {
-    // vaccineService.delete(vaccine);
-    // }
-
+     @PutMapping("ubdateVaccine")
+     public String ubdateVaccine(@RequestBody Vaccine vaccine) {
+     if (adminService.updateVaccine(vaccine)) {
+     return "Vaccine Is Ubdated Successfully";
+     }
+     return "This Vaccine Is NOT Exist";
+     }
 }

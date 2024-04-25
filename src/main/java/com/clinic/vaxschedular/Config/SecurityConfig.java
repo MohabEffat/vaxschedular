@@ -5,11 +5,9 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.clinic.vaxschedular.Config.UserDetailesService.RoleDetailesService;
-// import com.clinic.vaxschedular.Config.UserDetailesService.PatientDetailesService;
 
 @Configuration
 @EnableWebSecurity
@@ -33,6 +30,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer -> configurer
                 .requestMatchers(HttpMethod.GET, "/api/admin/hello").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/admin/listAllVaccines").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/admin/listAllVaccinationCenters").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/admin/addVaccine").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/admin/ubdateVaccinationCenter").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/admin/ubdateVaccine").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/admin/deleteVaccinationCenter").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/admin/deleteVaccine").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/admin/Register").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/admin/login").hasRole("PATIENT")
                 .requestMatchers(HttpMethod.POST, "/api/admin/Add_Center").hasAnyRole("CENTER", "ADMIN")
