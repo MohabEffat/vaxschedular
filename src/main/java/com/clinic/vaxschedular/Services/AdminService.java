@@ -16,24 +16,25 @@ public interface AdminService {
     String removePatient(Patient patient);
 
     String addAdmin(Admin admin);
+
     // String acceptPatient(Patient patient);
 
     // String rejectPatient(Patient patient);
 
     String addVaccinationCenter(VaccinationCenter vaccinationCenter);
 
-    boolean deleteVaccinationCenter(int id);
+    String deleteVaccinationCenter(int id);
 
-    boolean updateVaccinationCenter(VaccinationCenter vaccinationCenter);
+    String updateVaccinationCenter(int id, VaccinationCenter vaccinationCenter);
 
     List<VaccinationCenter> listVaccinationCenter();
 
-    boolean createVaccine(Vaccine vaccine);
+    String createVaccine(Vaccine vaccine);
 
     List<Vaccine> listVaccine();
 
-    boolean deleteVaccine(int id);
+    String deleteVaccine(int id);
 
-    boolean updateVaccine(Vaccine vaccine);
+    String updateVaccine(int id, Vaccine vaccine);
 
 }

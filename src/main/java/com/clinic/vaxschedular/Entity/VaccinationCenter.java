@@ -57,4 +57,13 @@ public class VaccinationCenter {
     @JoinColumn(name = "Admin_Id", referencedColumnName = "id", insertable = false, updatable = false)
     private Admin admin;
 
+    public VaccinationCenter(int id, String email, String centerName, String location, String phoneNum, int adminId) {
+        this.id = id;
+        this.email = email;
+        this.centerName = centerName;
+        this.location = location;
+        this.phoneNum = phoneNum;
+        this.adminId = adminId;
+    }
+
 }

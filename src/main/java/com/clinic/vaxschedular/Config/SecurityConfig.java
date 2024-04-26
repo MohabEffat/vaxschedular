@@ -29,18 +29,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer -> configurer
-                .requestMatchers(HttpMethod.GET, "/api/admin/hello").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/admin/listAllVaccines").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.GET, "/api/admin/listAllVaccinationCenters").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/admin/addVaccine").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/admin/updateVaccinationCenter").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/admin/updateVaccine").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/api/admin/deleteVaccinationCenter").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/api/admin/deleteVaccine").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/admin/Register").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/admin/login").hasRole("PATIENT")
-                .requestMatchers(HttpMethod.POST, "/api/admin/Add_Center").hasAnyRole("CENTER", "ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/admin/Add_Admin").hasRole("ADMIN")
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated());
         http.httpBasic(Customizer.withDefaults());
         http.csrf(csrf -> csrf.disable());

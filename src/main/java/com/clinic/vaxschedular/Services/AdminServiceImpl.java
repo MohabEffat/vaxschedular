@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.management.RuntimeErrorException;
+
 import com.clinic.vaxschedular.Entity.*;
 import com.clinic.vaxschedular.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +59,6 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-
     public String addAdmin(Admin admin) {
         Optional<Admin> existAdmin = adminRepo.findById(admin.getId());
         if (existAdmin.isPresent()) {
@@ -73,73 +74,53 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<VaccinationCenter> listVaccinationCenter() {
-        List<VaccinationCenter> allCenters = (List<VaccinationCenter>) vaccineCenterRepo.findAll();
-        List<VaccinationCenter> centersWithoutPassword = new ArrayList<>();
-
+        List<VaccinationCenter> allCenters = vaccineCenterRepo.findAll();
+        List<VaccinationCenter> existCenter = new ArrayList<>();
         for (VaccinationCenter center : allCenters) {
-            VaccinationCenter centerWithoutPassword = new VaccinationCenter();
-            centerWithoutPassword.setAdmin(center.getAdmin());
-            centerWithoutPassword.setId(center.getId());
-            centerWithoutPassword.setAdminId(center.getAdminId());
-            centerWithoutPassword.setCenterName(center.getCenterName());
-            centerWithoutPassword.setEmail(center.getEmail());
-            centerWithoutPassword.setPatients(center.getPatients());
-            centerWithoutPassword.setPhoneNum(center.getPhoneNum());
-            centerWithoutPassword.setLocation(center.getLocation());
-            centerWithoutPassword.setPassword("null");
-
-            centersWithoutPassword.add(centerWithoutPassword);
+            VaccinationCenter centerWithoutPassword = new VaccinationCenter(
+                    center.getId(), center.getEmail(), center.getCenterName(), center.getLocation(),
+                    center.getPhoneNum(), center.getAdminId());
+            existCenter.add(centerWithoutPassword);
         }
-
-        return centersWithoutPassword;
+        return existCenter;
     }
 
     @Override
-    public boolean updateVaccinationCenter(VaccinationCenter vaccinationCenter) {
-        List<VaccinationCenter> allCenters = (List<VaccinationCenter>) vaccineCenterRepo.findAll();
-
-        for (VaccinationCenter center : allCenters) {
-            if (center.getId() == vaccinationCenter.getId()) {
-                center.setAdmin(vaccinationCenter.getAdmin());
-                center.setId(vaccinationCenter.getId());
-                center.setAdminId(vaccinationCenter.getAdminId());
-                center.setCenterName(vaccinationCenter.getCenterName());
-                center.setEmail(vaccinationCenter.getEmail());
-                center.setPatients(vaccinationCenter.getPatients());
-                center.setPhoneNum(vaccinationCenter.getPhoneNum());
-                center.setLocation(vaccinationCenter.getLocation());
-                center.setPassword(vaccinationCenter.getPassword());
-                vaccineCenterRepo.save(center);
-                return true;
-            }
+    public String updateVaccinationCenter(int id, VaccinationCenter vaccinationCenter) {
+        Optional<VaccinationCenter> existCenter = vaccineCenterRepo.findById(id);
+        if (existCenter.isPresent()) {
+            VaccinationCenter updatedCenter = existCenter.get();
+            updatedCenter.setAdminId(vaccinationCenter.getAdminId());
+            updatedCenter.setCenterName(vaccinationCenter.getCenterName());
+            updatedCenter.setPassword(vaccinationCenter.getPassword());
+            updatedCenter.setEmail(vaccinationCenter.getEmail());
+            updatedCenter.setLocation(vaccinationCenter.getLocation());
+            updatedCenter.setPhoneNum(vaccinationCenter.getPhoneNum());
+            vaccineCenterRepo.save(updatedCenter);
+            return "Updated Successfully";
+        } else {
+            throw new RuntimeException("Center With id : " + id + " Does not Exist");
         }
-        return false;
     }
 
     @Override
-    public boolean deleteVaccinationCenter(int id) {
-        List<VaccinationCenter> allCenters = (List<VaccinationCenter>) vaccineCenterRepo.findAll();
-
-        for (VaccinationCenter center : allCenters) {
-            if (center.getId() == id) {
-                vaccineCenterRepo.deleteById(id);
-                return true;
-            }
+    public String deleteVaccinationCenter(int id) {
+        if (vaccineCenterRepo.findById(id).isPresent()) {
+            vaccineCenterRepo.deleteById(id);
+            return "Deleted Successfully";
+        } else {
+            throw new RuntimeException("Center With id : " + id + " Does not Exist");
         }
-        return false;
     }
 
     @Override
-    public boolean createVaccine(Vaccine vaccine) {
-        List<Vaccine> allvaccines = (List<Vaccine>) vaccineRepo.findAll();
-
-        for (Vaccine createdVaccine : allvaccines) {
-            if (createdVaccine.getId() == vaccine.getId()) {
-                return false;
-            }
+    public String createVaccine(Vaccine vaccine) {
+        if (vaccineRepo.findById(vaccine.getId()).isPresent()) {
+            throw new RuntimeException("Vaccine Already Exist");
+        } else {
+            vaccineRepo.save(vaccine);
+            return "Added Successfully";
         }
-        vaccineRepo.save(vaccine);
-        return true;
     }
 
     @Override
@@ -148,32 +129,26 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean deleteVaccine(int id) {
-        List<Vaccine> allvaccines = (List<Vaccine>) vaccineRepo.findAll();
-
-        for (Vaccine deleteVaccine : allvaccines) {
-            if (deleteVaccine.getId() == id) {
-                vaccineRepo.deleteById(id);
-                return true;
-            }
+    public String deleteVaccine(int id) {
+        if (vaccineRepo.findById(id).isPresent()) {
+            vaccineRepo.deleteById(id);
+            return "Deleted Successfully";
+        } else {
+            throw new RuntimeException("Vaccine With id : " + id + " Does not Exist");
         }
-        return false;
     }
 
     @Override
-    public boolean updateVaccine(Vaccine vaccine) {
-        List<Vaccine> allVaccines = (List<Vaccine>) vaccineRepo.findAll();
-
-        for (Vaccine updateVaccine : allVaccines) {
-            if (updateVaccine.getId() == vaccine.getId()) {
-                updateVaccine.setVaccineName(vaccine.getVaccineName());
-                updateVaccine.setVaccinationCenterName(vaccine.getVaccinationCenterName());
-                updateVaccine.setPrecautions(vaccine.getPrecautions());
-                updateVaccine.setDurationBetweenDoses(vaccine.getDurationBetweenDoses());
-                vaccineRepo.save(updateVaccine);
-                return true;
-            }
+    public String updateVaccine(int id, Vaccine vaccine) {
+        if (vaccineRepo.findById(id).isPresent()) {
+            Vaccine existVaccine = vaccineRepo.findById(id).get();
+            existVaccine.setVaccineName(vaccine.getVaccineName());
+            existVaccine.setDurationBetweenDoses(vaccine.getDurationBetweenDoses());
+            existVaccine.setPrecautions(vaccine.getPrecautions());
+            existVaccine.setVaccinationCenterName(vaccine.getVaccinationCenterName());
+            return "Updaed Successfully";
+        } else {
+            throw new RuntimeException("Vaccine With id : " + id + " Does not Exist");
         }
-        return false;
     }
 }
