@@ -19,7 +19,6 @@ public class VaxschedularApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(VaxschedularApplication.class, args);
-
 	}
 
 	@PostConstruct

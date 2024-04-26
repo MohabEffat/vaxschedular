@@ -1,10 +1,16 @@
 package com.clinic.vaxschedular.Entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +29,7 @@ public class Vaccine {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "vaccine_Name", nullable = false)
+    @Column(name = "vaccine_Name", nullable = false, unique = true)
     private String vaccineName;
 
     @Column(name = "duration_Between_Doses", nullable = false)
@@ -34,5 +40,13 @@ public class Vaccine {
 
     @Column(name = "vaccination_Center_Name", nullable = false)
     private String vaccinationCenterName;
+
+    @ManyToMany
+    @JoinTable(name = "Patient_Vaccine", joinColumns = @JoinColumn(name = "vaccine_Name"), inverseJoinColumns = @JoinColumn(name = "Patient_email"))
+    private Set<Patient> patients = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "VaccineCenter_Vaccine", joinColumns = @JoinColumn(name = "vaccine_Name"), inverseJoinColumns = @JoinColumn(name = "Vaccine_Center"))
+    private Set<VaccinationCenter> vaccinationCenters = new HashSet<>();
 
 }

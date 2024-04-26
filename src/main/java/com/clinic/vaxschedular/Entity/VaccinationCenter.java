@@ -1,6 +1,8 @@
 package com.clinic.vaxschedular.Entity;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.OneToMany;
@@ -12,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -37,7 +40,7 @@ public class VaccinationCenter {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "Center_name", nullable = false, unique = true)
+    @Column(name = "Vaccine_Center", nullable = false, unique = true)
     private String centerName;
 
     @Column(name = "location", nullable = false)
@@ -49,13 +52,16 @@ public class VaccinationCenter {
     @Column(name = "Admin_Id", nullable = false)
     private int adminId;
 
-    @OneToMany(mappedBy = "vaccinationCenter", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "vaccination_Center", cascade = CascadeType.ALL)
     private List<Patient> patients;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "Admin_Id", referencedColumnName = "id", insertable = false, updatable = false)
     private Admin admin;
+
+    @ManyToMany(mappedBy = "vaccinationCenters")
+    private Set<Vaccine> vaccine = new HashSet<>();
 
     public VaccinationCenter(int id, String email, String centerName, String location, String phoneNum, int adminId) {
         this.id = id;
