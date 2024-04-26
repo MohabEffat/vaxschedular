@@ -1,17 +1,11 @@
 package com.clinic.vaxschedular.Controller;
 
 import com.clinic.vaxschedular.Entity.Vaccine;
-import com.clinic.vaxschedular.Repository.PatientRepo;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import com.clinic.vaxschedular.DTO.LoginDTO;
 import com.clinic.vaxschedular.Entity.Admin;
-import com.clinic.vaxschedular.Entity.Patient;
 import com.clinic.vaxschedular.Entity.VaccinationCenter;
 import com.clinic.vaxschedular.Services.AdminService;
-import com.clinic.vaxschedular.Services.PaitentServices;
 
 import java.util.List;
 

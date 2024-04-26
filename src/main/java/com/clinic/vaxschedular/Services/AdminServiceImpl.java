@@ -3,9 +3,6 @@ package com.clinic.vaxschedular.Services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import javax.management.RuntimeErrorException;
-
 import com.clinic.vaxschedular.Entity.*;
 import com.clinic.vaxschedular.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
