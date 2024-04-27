@@ -43,6 +43,7 @@ public class Admin {
     @Column(name = "password", nullable = false)
     private String password;
 
+    // Relation with Center
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     private List<VaccinationCenter> vaccinationCenter;
 

@@ -52,16 +52,19 @@ public class VaccinationCenter {
     @Column(name = "Admin_Id", nullable = false)
     private int adminId;
 
-    @OneToMany(mappedBy = "vaccination_Center", cascade = CascadeType.ALL)
-    private List<Patient> patients;
+    // Patients relation
+    @OneToMany(mappedBy = "vaccinationCenter", cascade = CascadeType.ALL)
+    private Set<Patient> patients = new HashSet<>();
 
+    // Admin-Relation
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "Admin_Id", referencedColumnName = "id", insertable = false, updatable = false)
     private Admin admin;
 
+    // Many-To-Many Relation with Vaccine
     @ManyToMany(mappedBy = "vaccinationCenters")
-    private Set<Vaccine> vaccine = new HashSet<>();
+    private Set<Vaccine> vaccines = new HashSet<>();
 
     public VaccinationCenter(int id, String email, String centerName, String location, String phoneNum, int adminId) {
         this.id = id;

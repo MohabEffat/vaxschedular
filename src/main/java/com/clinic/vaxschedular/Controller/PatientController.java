@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.clinic.vaxschedular.DTO.LoginDTO;
+import com.clinic.vaxschedular.DTO.Reservation_DTO;
 import com.clinic.vaxschedular.Entity.Patient;
+import com.clinic.vaxschedular.Entity.Patient_Vaccine;
+import com.clinic.vaxschedular.Repository.Patient_Vaccine_Repo;
 import com.clinic.vaxschedular.Services.PaitentServices;
 
 @RestController
@@ -27,6 +30,11 @@ public class PatientController {
     // localhost:8080/Patient/login
     public String loginPatient(@RequestBody LoginDTO loginDTO) {
         return paitentServices.login(loginDTO);
+    }
+
+    @PostMapping("/Reserve")
+    public String reserve(@RequestBody Reservation_DTO test) {
+        return paitentServices.reseveVaccination(test);
     }
 
 }

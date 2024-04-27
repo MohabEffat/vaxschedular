@@ -58,10 +58,12 @@ public class Patient {
     @Column(name = "vaccination_Center", nullable = true)
     private String vaccination_Center;
 
+    // Relation With Vaccine Center
     @ManyToOne
     @JoinColumn(name = "vaccination_Center", referencedColumnName = "Vaccine_Center", insertable = false, updatable = false)
     private VaccinationCenter vaccinationCenter;
 
+    // Relation with Vaccine
     @ManyToMany(mappedBy = "patients")
-    private Set<Vaccine> vaccine = new HashSet<>();
+    private Set<Vaccine> vaccines = new HashSet<>();
 }

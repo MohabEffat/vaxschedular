@@ -29,7 +29,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer -> configurer
                 .requestMatchers("/admin/**").permitAll()
-                .requestMatchers("/Patient/Register").permitAll()
+                .requestMatchers("/Patient/**").permitAll()
                 .anyRequest().authenticated());
         http.httpBasic(Customizer.withDefaults());
         http.csrf(csrf -> csrf.disable());

@@ -3,6 +3,8 @@ package com.clinic.vaxschedular.Entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,13 +40,12 @@ public class Vaccine {
     @Column(name = "precautions", nullable = false)
     private String precautions;
 
-    @Column(name = "vaccination_Center_Name", nullable = false)
-    private String vaccinationCenterName;
-
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "Patient_Vaccine", joinColumns = @JoinColumn(name = "vaccine_Name"), inverseJoinColumns = @JoinColumn(name = "Patient_email"))
     private Set<Patient> patients = new HashSet<>();
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "VaccineCenter_Vaccine", joinColumns = @JoinColumn(name = "vaccine_Name"), inverseJoinColumns = @JoinColumn(name = "Vaccine_Center"))
     private Set<VaccinationCenter> vaccinationCenters = new HashSet<>();

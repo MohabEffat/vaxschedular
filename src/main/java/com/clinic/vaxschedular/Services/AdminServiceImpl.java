@@ -142,7 +142,6 @@ public class AdminServiceImpl implements AdminService {
             existVaccine.setVaccineName(vaccine.getVaccineName());
             existVaccine.setDurationBetweenDoses(vaccine.getDurationBetweenDoses());
             existVaccine.setPrecautions(vaccine.getPrecautions());
-            existVaccine.setVaccinationCenterName(vaccine.getVaccinationCenterName());
             return "Updaed Successfully";
         } else {
             throw new RuntimeException("Vaccine With id : " + id + " Does not Exist");
