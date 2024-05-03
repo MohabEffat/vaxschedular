@@ -1,5 +1,6 @@
 package com.clinic.vaxschedular.Services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,14 @@ import com.clinic.vaxschedular.DTO.Reservation_DTO;
 import com.clinic.vaxschedular.Entity.Patient;
 import com.clinic.vaxschedular.Entity.Patient_Vaccine;
 import com.clinic.vaxschedular.Entity.Role;
+import com.clinic.vaxschedular.Entity.VaccinationCenter;
 import com.clinic.vaxschedular.Entity.Vaccine;
+import com.clinic.vaxschedular.Entity.VaccineCenter_Vaccine;
 import com.clinic.vaxschedular.Repository.PatientRepo;
 import com.clinic.vaxschedular.Repository.Patient_Vaccine_Repo;
 import com.clinic.vaxschedular.Repository.RoleRepo;
+import com.clinic.vaxschedular.Repository.VaccinationCenterRepo;
+import com.clinic.vaxschedular.Repository.VaccineCenter_Vaccine_Repo;
 import com.clinic.vaxschedular.Repository.VaccineRepo;
 
 @Service
@@ -33,6 +38,12 @@ public class PaitentServicesImpl implements PaitentServices {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private VaccinationCenterRepo vaccinationCenterRepo;
+
+    @Autowired
+    private VaccineCenter_Vaccine_Repo vaccineCenter_Vaccine_Repo;
+
     @Override
     public String Register(Patient patient) {
 
@@ -44,7 +55,7 @@ public class PaitentServicesImpl implements PaitentServices {
             Patient newPatient = new Patient(patient.getId(), patient.getSsn(),
                     patient.getFirstName(), patient.getLastName(), patient.getEmail(),
                     this.passwordEncoder.encode(patient.getPassword()), patient.getCertification(),
-                    patient.getVaccination_Center(),
+                    patient.getVaccineCenter(),
                     patient.getVaccinationCenter(),
                     patient.getVaccines());
             patientRepo.save(newPatient);
@@ -77,13 +88,14 @@ public class PaitentServicesImpl implements PaitentServices {
 
     @Override
     public String reseveVaccination(Reservation_DTO test) {
-        Optional<Vaccine> existVaccine = vaccineRepo.findByVaccineName("Vac-X");
-        Optional<Patient> existPatient = patientRepo.findByEmail("mohab1@example.com");
+        Optional<Vaccine> existVaccine = vaccineRepo.findById(test.getVaccine_id());
+
+        Optional<Patient> existPatient = patientRepo.findById(test.getPatient_id());
 
         if (existVaccine.isPresent() && existPatient.isPresent()) {
             Patient_Vaccine patient_Vaccine = new Patient_Vaccine();
-            patient_Vaccine.setVaccine(existVaccine.get());
-            patient_Vaccine.setPatient(existPatient.get());
+            patient_Vaccine.setVaccineId(existVaccine.get().getId());
+            patient_Vaccine.setPatientId((existPatient.get().getId()));
             patient_Vaccine.setDoses(0);
             patient_Vaccine_Repo.save(patient_Vaccine);
             return "Done!";
@@ -91,6 +103,11 @@ public class PaitentServicesImpl implements PaitentServices {
             return "Failed";
         }
 
+    }
+
+    @Override
+    public List<VaccineCenter_Vaccine> listVaccinationCenters() {
+        return vaccineCenter_Vaccine_Repo.findAll();
     }
 
 }

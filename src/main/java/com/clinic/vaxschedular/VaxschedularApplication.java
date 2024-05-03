@@ -21,15 +21,15 @@ public class VaxschedularApplication {
 		SpringApplication.run(VaxschedularApplication.class, args);
 	}
 
-	@PostConstruct
-	public void Add_Admin() {
-		Admin admin = new Admin(1,
-				200,
-				"First",
-				"Admin",
-				"Admin@Example.com",
-				"Admin123",
-				null);
-		adminRepo.save(admin);
-	}
+	// @PostConstruct
+	// public void Add_Admin() {
+	// Admin admin = new Admin(1,
+	// 200,
+	// "First",
+	// "Admin",
+	// "Admin@Example.com",
+	// "Admin123",
+	// null, null);
+	// adminRepo.save(admin);
+	// }
 }

@@ -25,7 +25,7 @@ import lombok.Setter;
 public class Admin {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "Ssn", nullable = false, unique = true)
@@ -46,5 +46,9 @@ public class Admin {
     // Relation with Center
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     private List<VaccinationCenter> vaccinationCenter;
+
+    // Relation with Vaccine
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+    private List<Vaccine> vaccines;
 
 }

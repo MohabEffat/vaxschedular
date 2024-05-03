@@ -30,6 +30,9 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private VaccineRepo vaccineRepo;
 
+    @Autowired
+    private VaccineCenter_Vaccine_Repo vaccineCenter_Vaccine_Repo;
+
     @Override
     public String removePatient(Patient patient) {
         Optional<Patient> existPatient = patientRepo.findByEmail(patient.getEmail());
@@ -71,15 +74,10 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<VaccinationCenter> listVaccinationCenter() {
-        List<VaccinationCenter> allCenters = vaccineCenterRepo.findAll();
-        List<VaccinationCenter> existCenter = new ArrayList<>();
-        for (VaccinationCenter center : allCenters) {
-            VaccinationCenter centerWithoutPassword = new VaccinationCenter(
-                    center.getId(), center.getEmail(), center.getCenterName(), center.getLocation(),
-                    center.getPhoneNum(), center.getAdminId());
-            existCenter.add(centerWithoutPassword);
-        }
-        return existCenter;
+
+        List<VaccinationCenter> vaccinationCenters = vaccineCenterRepo.findAll();
+        vaccinationCenters.forEach(vc -> vc.getPatients().size()); // Trigger lazy loading of patients
+        return vaccinationCenters;
     }
 
     @Override

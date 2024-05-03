@@ -1,6 +1,7 @@
 package com.clinic.vaxschedular.Entity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,8 +29,9 @@ import lombok.Setter;
 @Table(name = "Vaccine")
 public class Vaccine {
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Vaccine_id")
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(name = "vaccine_Name", nullable = false, unique = true)
@@ -40,14 +43,22 @@ public class Vaccine {
     @Column(name = "precautions", nullable = false)
     private String precautions;
 
+    @Column(name = "Admin_Id", nullable = false)
+    private int adminId;
+
     @JsonIgnore
-    @ManyToMany
-    @JoinTable(name = "Patient_Vaccine", joinColumns = @JoinColumn(name = "vaccine_Name"), inverseJoinColumns = @JoinColumn(name = "Patient_email"))
-    private Set<Patient> patients = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "Admin_Id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Admin admin;
 
     @JsonIgnore
     @ManyToMany
-    @JoinTable(name = "VaccineCenter_Vaccine", joinColumns = @JoinColumn(name = "vaccine_Name"), inverseJoinColumns = @JoinColumn(name = "Vaccine_Center"))
-    private Set<VaccinationCenter> vaccinationCenters = new HashSet<>();
+    @JoinTable(name = "Patient_Vaccine", joinColumns = @JoinColumn(name = "Vaccine_id"), inverseJoinColumns = @JoinColumn(name = "Patient_id"))
+    private List<Patient> patients;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "VaccineCenter_Vaccine", joinColumns = @JoinColumn(name = "Vaccine_id"), inverseJoinColumns = @JoinColumn(name = "Vaccine_Center_id"))
+    private List<VaccinationCenter> vaccinationCenters;
 
 }

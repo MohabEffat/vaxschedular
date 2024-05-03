@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Reservation_DTO {
 
-    private String Name;
-    private String Email;
+    private int patient_id;
+    private int vaccine_id;
 
 }

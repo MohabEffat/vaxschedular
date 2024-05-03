@@ -23,15 +23,21 @@ import lombok.Setter;
 public class Patient_Vaccine {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "patient_id")
+    private int patientId;
+
+    @Column(name = "vaccine_id")
+    private int vaccineId;
+
     @ManyToOne
-    @JoinColumn(name = "patient_email")
+    @JoinColumn(name = "Patient_id", referencedColumnName = "Patient_id", insertable = false, updatable = false)
     private Patient patient;
 
     @ManyToOne
-    @JoinColumn(name = "vaccine_name")
+    @JoinColumn(name = "vaccine_id", referencedColumnName = "vaccine_id", insertable = false, updatable = false)
     private Vaccine vaccine;
 
     @Column(name = "doses")

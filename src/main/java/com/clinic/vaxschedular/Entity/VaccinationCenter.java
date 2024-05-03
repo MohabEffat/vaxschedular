@@ -31,7 +31,8 @@ import lombok.Setter;
 public class VaccinationCenter {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Vaccine_Center_id")
     private int id;
 
     @Column(name = "email", nullable = false, unique = true)
@@ -40,7 +41,7 @@ public class VaccinationCenter {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "Vaccine_Center", nullable = false, unique = true)
+    @Column(name = "Vaccine_Center_Name", nullable = false, unique = true)
     private String centerName;
 
     @Column(name = "location", nullable = false)
@@ -53,9 +54,11 @@ public class VaccinationCenter {
     private int adminId;
 
     // Patients relation
+    // @JsonIgnore
     @OneToMany(mappedBy = "vaccinationCenter", cascade = CascadeType.ALL)
-    private Set<Patient> patients = new HashSet<>();
+    private List<Patient> patients;
 
+    // Set<ChildEntity> children = new HashSet<>()
     // Admin-Relation
     @JsonIgnore
     @ManyToOne
@@ -64,15 +67,6 @@ public class VaccinationCenter {
 
     // Many-To-Many Relation with Vaccine
     @ManyToMany(mappedBy = "vaccinationCenters")
-    private Set<Vaccine> vaccines = new HashSet<>();
-
-    public VaccinationCenter(int id, String email, String centerName, String location, String phoneNum, int adminId) {
-        this.id = id;
-        this.email = email;
-        this.centerName = centerName;
-        this.location = location;
-        this.phoneNum = phoneNum;
-        this.adminId = adminId;
-    }
+    private List<Vaccine> vaccines;
 
 }

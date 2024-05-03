@@ -1,9 +1,11 @@
 package com.clinic.vaxschedular.Entity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.clinic.vaxschedular.Config.AesEncryptor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -15,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +32,8 @@ import lombok.Setter;
 public class Patient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Patient_id")
     private int id;
 
     // @Convert(converter = AesEncryptor.class)
@@ -43,7 +47,6 @@ public class Patient {
     // @Convert(converter = AesEncryptor.class)
     @Column(name = "last_name", nullable = false)
     private String lastName;
-
     // @Convert(converter = AesEncryptor.class)
     @Column(name = "patient_email", nullable = false, unique = true)
     private String email;
@@ -55,15 +58,17 @@ public class Patient {
     @Column(name = "certification", nullable = true)
     private String certification;
 
-    @Column(name = "vaccination_Center", nullable = true)
-    private String vaccination_Center;
+    @Column(name = "vaccination_Center_id", nullable = true)
+    private int vaccineCenter;
 
     // Relation With Vaccine Center
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "vaccination_Center", referencedColumnName = "Vaccine_Center", insertable = false, updatable = false)
+    @JoinColumn(name = "vaccination_Center_id", referencedColumnName = "Vaccine_Center_id", insertable = false, updatable = false)
     private VaccinationCenter vaccinationCenter;
 
     // Relation with Vaccine
+    @JsonIgnore
     @ManyToMany(mappedBy = "patients")
-    private Set<Vaccine> vaccines = new HashSet<>();
+    private List<Vaccine> vaccines;
 }
