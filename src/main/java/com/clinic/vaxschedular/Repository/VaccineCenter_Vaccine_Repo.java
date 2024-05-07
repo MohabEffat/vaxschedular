@@ -9,6 +9,6 @@ import com.clinic.vaxschedular.Entity.VaccineCenter_Vaccine;
 
 public interface VaccineCenter_Vaccine_Repo extends JpaRepository<VaccineCenter_Vaccine, Integer> {
 
-    List<Vaccine> findByVaccineCenterId(int id);
+    List<Vaccine> findByVaccineId(int id);
 
 }

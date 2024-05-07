@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.clinic.vaxschedular.DTO.LoginDTO;
 import com.clinic.vaxschedular.DTO.Reservation_DTO;
+import com.clinic.vaxschedular.DTO.VaccineCenterDTO;
+import com.clinic.vaxschedular.DTO.VaccineDTO;
 import com.clinic.vaxschedular.Entity.Patient;
-import com.clinic.vaxschedular.Entity.Patient_Vaccine;
-import com.clinic.vaxschedular.Entity.VaccinationCenter;
-import com.clinic.vaxschedular.Entity.VaccineCenter_Vaccine;
-import com.clinic.vaxschedular.Repository.Patient_Vaccine_Repo;
 import com.clinic.vaxschedular.Services.PaitentServices;
 
 @RestController
@@ -37,14 +35,19 @@ public class PatientController {
         return paitentServices.login(loginDTO);
     }
 
-    @PostMapping("/Reserve")
+    @PostMapping("")
     public String reserve(@RequestBody Reservation_DTO test) {
         return paitentServices.reseveVaccination(test);
     }
 
-    @GetMapping("/List")
-    public List<VaccineCenter_Vaccine> listCenters() {
+    @GetMapping("")
+    public List<VaccineCenterDTO> listCenters() {
         return paitentServices.listVaccinationCenters();
+    }
+
+    @GetMapping("/listVaccine")
+    public List<VaccineDTO> listVaccine() {
+        return paitentServices.listVaccine();
     }
 
 }

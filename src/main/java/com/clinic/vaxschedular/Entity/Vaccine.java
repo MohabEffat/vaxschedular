@@ -1,8 +1,6 @@
 package com.clinic.vaxschedular.Entity;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -56,7 +54,6 @@ public class Vaccine {
     @JoinTable(name = "Patient_Vaccine", joinColumns = @JoinColumn(name = "Vaccine_id"), inverseJoinColumns = @JoinColumn(name = "Patient_id"))
     private List<Patient> patients;
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "VaccineCenter_Vaccine", joinColumns = @JoinColumn(name = "Vaccine_id"), inverseJoinColumns = @JoinColumn(name = "Vaccine_Center_id"))
     private List<VaccinationCenter> vaccinationCenters;

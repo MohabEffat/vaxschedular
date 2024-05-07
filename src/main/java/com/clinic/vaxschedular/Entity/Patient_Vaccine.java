@@ -1,5 +1,7 @@
 package com.clinic.vaxschedular.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 
 import jakarta.persistence.Entity;
@@ -24,13 +26,20 @@ public class Patient_Vaccine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private int id;
 
     @Column(name = "patient_id")
-    private int patientId;
+    private int patid;
 
     @Column(name = "vaccine_id")
-    private int vaccineId;
+    private int vaccid;
+
+    @Column(name = "first_Dose")
+    private boolean firstDose;
+
+    @Column(name = "second_Dose")
+    private boolean secondDose;
 
     @ManyToOne
     @JoinColumn(name = "Patient_id", referencedColumnName = "Patient_id", insertable = false, updatable = false)
@@ -39,8 +48,5 @@ public class Patient_Vaccine {
     @ManyToOne
     @JoinColumn(name = "vaccine_id", referencedColumnName = "vaccine_id", insertable = false, updatable = false)
     private Vaccine vaccine;
-
-    @Column(name = "doses")
-    private int doses;
 
 }

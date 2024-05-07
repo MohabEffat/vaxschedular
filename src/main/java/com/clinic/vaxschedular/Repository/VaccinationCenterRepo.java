@@ -1,7 +1,6 @@
 package com.clinic.vaxschedular.Repository;
 
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -14,5 +13,7 @@ import com.clinic.vaxschedular.Entity.VaccinationCenter;
 public interface VaccinationCenterRepo extends JpaRepository<VaccinationCenter, Integer> {
 
     Optional<VaccinationCenter> findByEmail(String email);
+
+    Optional<VaccinationCenter> findByCenterName(String name);
 
 }

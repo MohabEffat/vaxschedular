@@ -1,8 +1,6 @@
 package com.clinic.vaxschedular.Entity;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.OneToMany;
@@ -54,7 +52,7 @@ public class VaccinationCenter {
     private int adminId;
 
     // Patients relation
-    // @JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "vaccinationCenter", cascade = CascadeType.ALL)
     private List<Patient> patients;
 
@@ -65,8 +63,9 @@ public class VaccinationCenter {
     @JoinColumn(name = "Admin_Id", referencedColumnName = "id", insertable = false, updatable = false)
     private Admin admin;
 
+    @JsonIgnore
     // Many-To-Many Relation with Vaccine
-    @ManyToMany(mappedBy = "vaccinationCenters")
+    @ManyToMany(mappedBy = "vaccinationCenters", cascade = CascadeType.ALL)
     private List<Vaccine> vaccines;
 
 }

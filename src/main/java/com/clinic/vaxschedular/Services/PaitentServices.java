@@ -6,12 +6,9 @@ import org.springframework.stereotype.Service;
 
 import com.clinic.vaxschedular.DTO.LoginDTO;
 import com.clinic.vaxschedular.DTO.Reservation_DTO;
-// import com.clinic.vaxschedular.DTO.Certificate;
-// import com.clinic.vaxschedular.Entity.Vaccine;
+import com.clinic.vaxschedular.DTO.VaccineCenterDTO;
+import com.clinic.vaxschedular.DTO.VaccineDTO;
 import com.clinic.vaxschedular.Entity.Patient;
-import com.clinic.vaxschedular.Entity.VaccinationCenter;
-import com.clinic.vaxschedular.Entity.Vaccine;
-import com.clinic.vaxschedular.Entity.VaccineCenter_Vaccine;
 
 @Service
 public interface PaitentServices {
@@ -20,9 +17,9 @@ public interface PaitentServices {
 
     String login(LoginDTO loginDTO);
 
-    List<VaccineCenter_Vaccine> listVaccinationCenters();
+    List<VaccineCenterDTO> listVaccinationCenters();
 
-    // String listVaccine();
+    List<VaccineDTO> listVaccine();
 
     String reseveVaccination(Reservation_DTO test);
 

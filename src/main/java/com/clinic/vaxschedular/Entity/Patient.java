@@ -1,14 +1,12 @@
 package com.clinic.vaxschedular.Entity;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import com.clinic.vaxschedular.Config.AesEncryptor;
+import com.clinic.vaxschedular.DTO.Certification;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,8 +14,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,11 +51,7 @@ public class Patient {
 
     @Column(name = "password", nullable = false)
     private String password;
-
-    // @Convert(converter = AesEncryptor.class)
-    @Column(name = "certification", nullable = true)
-    private String certification;
-
+    @JsonIgnore
     @Column(name = "vaccination_Center_id", nullable = true)
     private int vaccineCenter;
 
@@ -69,6 +63,9 @@ public class Patient {
 
     // Relation with Vaccine
     @JsonIgnore
-    @ManyToMany(mappedBy = "patients")
+    @ManyToMany(mappedBy = "patients", cascade = CascadeType.ALL)
     private List<Vaccine> vaccines;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<Certification> certifications;
 }

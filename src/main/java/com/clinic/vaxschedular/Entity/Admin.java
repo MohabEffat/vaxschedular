@@ -29,7 +29,7 @@ public class Admin {
     private int id;
 
     @Column(name = "Ssn", nullable = false, unique = true)
-    private long Ssn;
+    private long ssn;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
