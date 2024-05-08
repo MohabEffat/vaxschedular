@@ -10,4 +10,6 @@ public interface Patient_Vaccine_Repo extends JpaRepository<Patient_Vaccine, Int
 
     Optional<Patient_Vaccine> findByVaccidAndPatid(int vaccid, int patid);
 
+    Optional<Patient_Vaccine> findByPatid(int patid);
+
 }

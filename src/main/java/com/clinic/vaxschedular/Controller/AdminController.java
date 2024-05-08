@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.clinic.vaxschedular.DTO.PatientDTO;
 import com.clinic.vaxschedular.Entity.Admin;
+import com.clinic.vaxschedular.Entity.Certification;
 import com.clinic.vaxschedular.Entity.VaccinationCenter;
 import com.clinic.vaxschedular.Services.AdminService;
 
@@ -108,5 +109,10 @@ public class AdminController {
     @PostMapping("/Vaccine_Center/{center_id}/{vaccine_id}")
     public String a7a(@PathVariable int center_id, @PathVariable int vaccine_id) {
         return adminService.updateVaccinationCenter(center_id, vaccine_id);
+    }
+
+    @PostMapping("/Upload")
+    public String upload(@RequestBody Certification certification) {
+        return adminService.uploadCertificate(certification);
     }
 }

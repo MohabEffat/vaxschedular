@@ -110,7 +110,6 @@ public class PaitentServicesImpl implements PaitentServices {
                 patient_Vaccine_Repo.save(patient_Vaccine);
                 return "First Dose Reserved Successfully!";
             }
-
         }
         return "Reservation Failed";
 
@@ -149,19 +148,6 @@ public class PaitentServicesImpl implements PaitentServices {
             vaccineDTO.setDurationBetweenDoses(vaccine.getDurationBetweenDoses());
             vaccineDTO.setPrecautions(vaccine.getPrecautions());
             vaccineDTO.setVaccineName(vaccine.getVaccineName());
-
-            // List<VaccineCenterDTO> vaccineCenterDTOs = new ArrayList<>();
-            // for (VaccinationCenter vaccinationCenter : vaccine.getVaccinationCenters()) {
-
-            // VaccineCenterDTO vaccineCenterDTO = new VaccineCenterDTO();
-
-            // vaccineCenterDTO.setEmail(vaccinationCenter.getEmail());
-
-            // vaccineCenterDTO.setLocatoin(vaccinationCenter.getLocation());
-            // vaccineCenterDTO.setName(vaccinationCenter.getCenterName());
-            // vaccineCenterDTOs.add(vaccineCenterDTO);
-            // }
-            // //vaccineDTO.se(vaccineCenterDTOs);
             vaccineDTOs.add(vaccineDTO);
         }
         return vaccineDTOs;

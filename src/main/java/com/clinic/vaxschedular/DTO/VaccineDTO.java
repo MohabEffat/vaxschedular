@@ -17,11 +17,4 @@ public class VaccineDTO {
     private String durationBetweenDoses;
     private String precautions;
 
-    // public VaccineDTO(String vaccineName, String durationBetweenDoses, String
-    // precautions) {
-    // this.vaccineName = vaccineName;
-    // this.durationBetweenDoses = durationBetweenDoses;
-    // this.precautions = precautions;
-    // }
-
 }

@@ -2,7 +2,6 @@ package com.clinic.vaxschedular.Entity;
 
 import java.util.List;
 
-import com.clinic.vaxschedular.DTO.Certification;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -51,7 +50,6 @@ public class Patient {
 
     @Column(name = "password", nullable = false)
     private String password;
-    @JsonIgnore
     @Column(name = "vaccination_Center_id", nullable = true)
     private int vaccineCenter;
 
@@ -65,7 +63,7 @@ public class Patient {
     @JsonIgnore
     @ManyToMany(mappedBy = "patients", cascade = CascadeType.ALL)
     private List<Vaccine> vaccines;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Certification> certifications;
 }

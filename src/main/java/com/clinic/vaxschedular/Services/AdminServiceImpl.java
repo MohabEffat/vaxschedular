@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.clinic.vaxschedular.DTO.PatientDTO;
-import com.clinic.vaxschedular.DTO.VaccineCenterDTO;
-import com.clinic.vaxschedular.DTO.VaccineDTO;
+import com.clinic.vaxschedular.DTO.*;
 import com.clinic.vaxschedular.Entity.*;
 import com.clinic.vaxschedular.Repository.*;
 import com.clinic.vaxschedular.Response.DuplicateEntryException;
@@ -40,6 +38,11 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private VaccineCenter_Vaccine_Repo vaccineCenter_Vaccine_Repo;
+
+    @Autowired
+    private CertificationRepo certificationRepo;
+    @Autowired
+    private Patient_Vaccine_Repo patient_Vaccine_Repo;
 
     @Override
     public String removePatient(int id) throws NotFoundException {
@@ -216,5 +219,28 @@ public class AdminServiceImpl implements AdminService {
         vaccineRepo.save(existVaccine);
         return "Updaed Successfully";
 
+    }
+
+    @Override
+    public String uploadCertificate(Certification certificate) {
+
+        if (patientRepo.findById(certificate.getPatientId()).isPresent()) {
+
+            Optional<Patient_Vaccine> exist = patient_Vaccine_Repo.findByVaccidAndPatid(certificate.getVaccineId(),
+                    certificate.getPatientId());
+            if (exist.get().isSecondDose()) {
+
+                if (patientRepo.findById(certificate.getId()).get().getVaccineCenter() == certificate
+                        .getVaccinationCenterId()) {
+                    certificationRepo.save(certificate);
+                    return "uploaded Successfully";
+                } else {
+                    return "Wrong Center Name";
+                }
+            } else {
+                return "Second Dose Required";
+            }
+        }
+        return "Patioent Not Found";
     }
 }

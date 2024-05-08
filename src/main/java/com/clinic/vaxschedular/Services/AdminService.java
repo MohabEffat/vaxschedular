@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 
 import com.clinic.vaxschedular.DTO.PatientDTO;
 import com.clinic.vaxschedular.Entity.Admin;
+import com.clinic.vaxschedular.Entity.Certification;
 import com.clinic.vaxschedular.Entity.VaccinationCenter;
 
 import java.util.List;
-// import com.clinic.vaxschedular.Entity.Vaccine;
 
 @Service
 public interface AdminService {
@@ -16,10 +16,6 @@ public interface AdminService {
     String removePatient(int id);
 
     String addAdmin(Admin admin);
-
-    // String acceptPatient(Patient patient);
-
-    // String rejectPatient(Patient patient);
 
     String addVaccinationCenter(VaccinationCenter vaccinationCenter);
 
@@ -40,4 +36,6 @@ public interface AdminService {
     String updateVaccine(int id, Vaccine vaccine);
 
     List<PatientDTO> listPatients();
+
+    String uploadCertificate(Certification certificate);
 }

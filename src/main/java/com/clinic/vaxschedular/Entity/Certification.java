@@ -1,6 +1,4 @@
-package com.clinic.vaxschedular.DTO;
-
-import com.clinic.vaxschedular.Entity.Patient;
+package com.clinic.vaxschedular.Entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Certificate")
+@Table(name = "Certification")
 public class Certification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,13 +19,13 @@ public class Certification {
     private int id;
 
     @Column(name = "Patient_id", nullable = false)
-    private String patientName;
+    private int patientId;
 
     @Column(name = "vaccine_name", nullable = false)
-    private String vaccineName;
+    private int vaccineId;
 
     @Column(name = "vaccinationCenter_name", nullable = false)
-    private String vaccinationCenterName;
+    private int vaccinationCenterId;
 
     @ManyToOne
     @JoinColumn(name = "Patient_id", referencedColumnName = "Patient_id", insertable = false, updatable = false)
