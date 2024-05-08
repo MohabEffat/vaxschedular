@@ -51,7 +51,7 @@ public class Patient {
 
     @Column(name = "password", nullable = false)
     private String password;
-    @JsonIgnore
+    // @xx
     @Column(name = "vaccination_Center_id", nullable = true)
     private int vaccineCenter;
 
