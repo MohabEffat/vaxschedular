@@ -23,6 +23,4 @@ public interface PaitentServices {
 
     String reseveVaccination(Reservation_DTO test);
 
-    // String viewCertification(Certificate certificate);
-
 }

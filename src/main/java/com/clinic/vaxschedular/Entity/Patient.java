@@ -2,10 +2,12 @@ package com.clinic.vaxschedular.Entity;
 
 import java.util.List;
 
+import com.clinic.vaxschedular.Config.AesEncryptor;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -44,7 +46,7 @@ public class Patient {
     // @Convert(converter = AesEncryptor.class)
     @Column(name = "last_name", nullable = false)
     private String lastName;
-    // @Convert(converter = AesEncryptor.class)
+    @Convert(converter = AesEncryptor.class)
     @Column(name = "patient_email", nullable = false, unique = true)
     private String email;
 

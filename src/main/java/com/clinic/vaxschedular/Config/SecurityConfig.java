@@ -29,9 +29,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer -> configurer
-                .requestMatchers("/admin/**").hasRole("ADMin")
+                .requestMatchers("/admin/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/Patient/Register").permitAll()
-                .requestMatchers("/Patient/**").hasRole("PATIENT")
+                .requestMatchers(HttpMethod.POST, "/Patient/login").permitAll()
+                .requestMatchers("/Patient/**").permitAll()
                 .anyRequest().authenticated());
         http.httpBasic(Customizer.withDefaults());
         http.csrf(csrf -> csrf.disable());

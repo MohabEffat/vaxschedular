@@ -65,12 +65,12 @@ public class PaitentServicesImpl implements PaitentServices {
     }
 
     public String login(LoginDTO loginDTO) {
-        Optional<Patient> patient = patientRepo.findByEmail(loginDTO.getEmail());
+        Optional<Role> patient = roleRepo.findByEmail(loginDTO.getEmail());
         if (patient.isPresent()) {
             String encodedPassword = patient.get().getPassword();
             boolean isPwdRight = passwordEncoder.matches(loginDTO.getPassword(), encodedPassword);
             if (isPwdRight) {
-                Optional<Patient> existPatient = patientRepo.findByEmailAndPassword(loginDTO.getEmail(),
+                Optional<Role> existPatient = roleRepo.findByEmailAndPassword(loginDTO.getEmail(),
                         encodedPassword);
                 if (existPatient.isPresent()) {
                     return "Login Success";

@@ -10,4 +10,6 @@ public interface RoleRepo extends JpaRepository<Role, Integer> {
 
     Optional<Role> findByEmail(String email);
 
+    Optional<Role> findByEmailAndPassword(String email, String password);
+
 }
